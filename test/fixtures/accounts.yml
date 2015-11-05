@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user_id: 
+  u_id: 
+  username: MyString
+  name: MyString
+  secret_token: MyString
+  best_time: MyText
+  last_calculated_time: 2015-11-05 12:24:22
+
+two:
+  user_id: 
+  u_id: 
+  username: MyString
+  name: MyString
+  secret_token: MyString
+  best_time: MyText
+  last_calculated_time: 2015-11-05 12:24:22

@@ -1,0 +1,33 @@
+<h1>InstaBestTime</h1>
+
+<div>
+  <% if @current_user %>
+      User:
+      <%= @current_user.username %>
+      <br/>
+      Accounts
+      <br/>
+      <% @current_user.accounts.each do |a| %>
+          <%= link_to "#{a.username}", controller: 'user', action: 'select_account', account_id: a.id %>
+          <br/>
+      <% end %>
+      <%= link_to 'Add Account', controller: 'user', action: 'add_account' %>
+
+      <br/>
+  <% end %>
+
+  <% if !@current_user %>
+      <%= link_to 'Sign In With Instagram', controller: 'user', action: 'sign_in' %>
+  <% else %>
+      Current Account:
+      <%= @current_account.username %>
+      <br/>
+      <%= link_to 'Sign Out', controller: 'user', action: 'sign_out' %>
+      <br/>
+      <%= link_to 'Get Best Time', controller: 'user', action: 'get_best_time' %>
+      <br/>
+      <%= @best_time%>
+  <% end %>
+
+
+</div>

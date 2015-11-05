@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Get Best Time</title>
+    <style>
+        .loading {
+            position:   fixed;
+            z-index:    1000;
+            top:        0px;
+            left:       0px;
+            height:     100%;
+            width:      100%;
+            background: rgba( 255, 255, 255, .8 )
+            url('ajax-loader.gif')
+            50% 50%
+            no-repeat;
+        }
+    </style>
+</head>
+<body ng-app="MyApp">
+<div ng-controller="BestTime">
+    <span ng-if="error" style="color:red">Error Occurred: {{error}}</span>
+    <br/>
+    <div>
+        User ID:
+        <input type="text" ng-model="user.id" ng-disabled="result"/> &nbsp;
+        User Name:
+        <input type="text" ng-model="user.name" ng-disabled="result"/> &nbsp;
+        <input type="checkbox" ng-model="slice_followers"> Use first
+        <input type="number" style="text-align:right;width:50px" min="0" ng-model="req_followers_count" ng-disabled="!slice_followers" ng-pattern="/^[0-9]+$/"/>
+        followers &nbsp;
+        <input type="button" ng-click="getBestTime()" value="Get Result" ng-disabled="(!user.id && !user.name) || (slice_followers && !req_followers_count) || processing"> &nbsp;
+        <input type="button" ng-click="reset()" value="Reset" ng-disabled="(!user.id && !user.name) || processing">
+    </div>
+    <div>
+        <br/>
+        <span ng-if="user.followers.count">
+            Followers Total:
+            {{user.followers.count}}
+        </span>
+        <span ng-if="user.followers.fetched">
+            Fetched:
+            {{user.followers.fetched}}
+        </span>
+        <span ng-if="user.followers.processed && result">
+            Processed:
+            {{user.followers.processed}}
+        </span>
+        <br/>
+        <br/>
+        <h3 ng-if="result">
+            Best time to post would be on
+            <span style="color:green" ng-repeat="d in resultantDays">&nbsp;{{d}}{{$last? '' : ','}}</span>
+            &nbsp;around
+            <span style="color:green" ng-repeat="t in resultantHours">&nbsp;{{("0" + t).slice(-2)}}00{{$last? '' : ','}}</span>
+            &nbsp;Hours.
+        </h3>
+    </div>
+    <div ng-if="processing" class="loading"></div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.9/angular.min.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
